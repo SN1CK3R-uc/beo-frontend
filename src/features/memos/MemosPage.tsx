@@ -79,7 +79,7 @@ export function MemosPage() {
         />
       ) : (
         <div className="memo-list">
-          {memosQuery.data.map((m) => {
+          {(memosQuery.data ?? []).map((m) => {
             const percent =
               m.totalRecipients > 0
                 ? Math.round((m.readCount / m.totalRecipients) * 100)
