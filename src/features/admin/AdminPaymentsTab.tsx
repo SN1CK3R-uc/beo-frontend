@@ -149,7 +149,7 @@ export function AdminPaymentsTab() {
               </tr>
             </thead>
             <tbody>
-              {paymentsQuery.data.map((p) => (
+              {(paymentsQuery.data ?? []).map((p) => (
                 <tr key={p.id}>
                   <td style={{ fontFamily: 'monospace', fontSize: '0.78rem' }}>
                     {p.gatewayRef ?? p.id.slice(0, 12)}
