@@ -79,7 +79,7 @@ export function AdminPage() {
                   </tr>
                 </thead>
                 <tbody>
-                  {usersQuery.data.map((u) => (
+                  {(usersQuery.data ?? []).map((u) => (
                     <tr key={u.id} style={{ opacity: u.isActive ? 1 : 0.5 }}>
                       <td style={{ fontFamily: 'monospace', fontSize: '0.82rem' }}>{u.id}</td>
                       <td>{u.name}</td>
