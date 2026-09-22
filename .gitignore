@@ -4,4 +4,4 @@ dist/
 .env.local
 .vite/
 *.log
-.DS_Store
+.DS_Storenode_module/ 
