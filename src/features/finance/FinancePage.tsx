@@ -272,7 +272,7 @@ export function FinancePage() {
                     </tr>
                   </thead>
                   <tbody>
-                    {transactionsQuery.data.map((r) => (
+                    {(transactionsQuery.data ?? []).map((r) => (
                       <tr key={r.id}>
                         <td style={{ fontFamily: 'monospace', fontSize: '0.82rem' }}>
                           {r.id.slice(0, 12)}…
