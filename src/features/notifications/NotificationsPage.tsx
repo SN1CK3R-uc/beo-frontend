@@ -61,7 +61,7 @@ export function NotificationsPage() {
         ) : notificationsQuery.data?.length === 0 ? (
           <StateBlock kind="empty" message="You're all caught up." />
         ) : (
-          notificationsQuery.data.map((n) => (
+          (notificationsQuery.data ?? []).map((n) => (
             <div
               key={n.id}
               className="feed-item"
