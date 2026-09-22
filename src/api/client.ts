@@ -12,34 +12,35 @@ api.interceptors.response.use(
   (response) => response,
   (error) => {
     const status = error.response?.status;
+    const url: string = error.config?.url ?? '';
 
-    // 401: session expired or never existed
-    if (status === 401) {
+    // Endpoints that should never trigger an auto-logout:
+    // - /auth/logout: calling it while already logged out returns 401
+    // - /auth/me: initial session check on page load, expected to 401 when not logged in
+    const isLogoutCall = url.includes('/auth/logout');
+    const isMeCall = url.includes('/auth/me');
+
+    if (status === 401 && !isLogoutCall && !isMeCall) {
+      // Session expired while the user was active — log them out once
       useAuthStore.getState().logout();
     }
 
-    // 403: forbidden — server says no
     if (status === 403) {
-      useToastStore.getState().push(
-        'You do not have permission for that action.',
-        'danger',
-      );
+      useToastStore
+        .getState()
+        .push('You do not have permission for that action.', 'danger');
     }
 
-    // 5xx: server-side error
     if (status && status >= 500) {
-      useToastStore.getState().push(
-        'Server error. Please try again.',
-        'danger',
-      );
+      useToastStore
+        .getState()
+        .push('Server error. Please try again.', 'danger');
     }
 
-    // Network error (no response at all)
     if (!error.response) {
-      useToastStore.getState().push(
-        'Network error. Check your connection.',
-        'danger',
-      );
+      useToastStore
+        .getState()
+        .push('Network error. Check your connection.', 'danger');
     }
 
     return Promise.reject(error);
