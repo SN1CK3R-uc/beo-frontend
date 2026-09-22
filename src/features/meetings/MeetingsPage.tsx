@@ -127,7 +127,7 @@ export function MeetingsPage() {
         <StateBlock kind="empty" message="No meetings scheduled." action={can('meetings.manage') ? <Button onClick={openCreate}>Create first meeting</Button> : undefined} />
       ) : (
         <div className="cards-grid">
-          {meetingsQuery.data.map((m) => (
+          {(meetingsQuery.data ?? []).map((m) => (
             <div key={m.id} className="card" style={{ opacity: m.cancelled ? 0.5 : 1 }}>
               <span className="card-tag">{m.cancelled ? 'Cancelled' : m.tag}</span>
               <h3 style={{ marginTop: 8 }}>{m.title}</h3>
